@@ -110634,7 +110634,9 @@ class ManifestCache {
         const keyPrefix = `ghcr-manifest-${CACHE_SCHEMA_VERSION}-${owner}-${safePackage}-`;
         this.key = `${keyPrefix}${runId}`;
         this.restoreKeys = [keyPrefix];
-        this.enabled = isFeatureAvailable();
+        // shsunmoonlee fork: the manifest cache is OFF. A restored entry is trusted without
+        // re-checking its digest and steers deletions; any job on the branch can write it.
+        this.enabled = false;
     }
     /**
      * Pull the most-recent matching cache (if any) and load it into the
